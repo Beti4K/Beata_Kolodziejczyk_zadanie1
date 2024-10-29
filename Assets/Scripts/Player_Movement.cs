@@ -6,12 +6,16 @@ public class Player_Movement : MonoBehaviour
 {
     private float speed = 3.0f;
     public int points = 0;
-   
+    public bool isGameActive = true;
+
     void Update()
     {
-        float horizontal = Input.GetAxis("Horizontal");
-        float vertical = Input.GetAxis("Vertical");
+        if (isGameActive)
+        {
+            float horizontal = Input.GetAxis("Horizontal");
+            float vertical = Input.GetAxis("Vertical");
 
-        transform.position += new Vector3(horizontal * speed * Time.deltaTime, 0, vertical * speed * Time.deltaTime);
+            transform.position += new Vector3(horizontal * speed * Time.deltaTime, 0, vertical * speed * Time.deltaTime);
+        }
     }
 }

@@ -21,5 +21,4 @@ public class Collision_Points : MonoBehaviour
 
         this.gameObject.GetComponent<Renderer>().material.color = new Color32(Random.Range(0, 256).ConvertTo<byte>(), Random.Range(0, 256).ConvertTo<byte>(), Random.Range(0, 256).ConvertTo<byte>(), 255);
     }
-    
 }
