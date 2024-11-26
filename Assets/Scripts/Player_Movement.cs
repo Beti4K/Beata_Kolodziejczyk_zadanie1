@@ -6,6 +6,7 @@ public class Player_Movement : MonoBehaviour
 {
     private float speed = 3.0f;
     public int points = 0;
+    public int collectables = 0;
     public bool isGameActive = true;
 
     void Update()
