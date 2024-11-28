@@ -13,12 +13,12 @@ public class Level_Timer : MonoBehaviour
     {
         StartCoroutine(TimePass());
     }
-    public IEnumerator TimePass()
+    private IEnumerator TimePass()
     {
         yield return new WaitForSeconds(1);
         if (levelTime <= 0)
         {
-            Player.GetComponent<Player_Movement>().isGameActive = false;
+            Player.GetComponent<Player_Movement>().GameOver();
         }
         else
         {

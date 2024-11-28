@@ -32,8 +32,8 @@ public class Collectable : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            collision.gameObject.GetComponent<Player_Movement>().collectables += 1;
             Destroy(gameObject);
+            collision.gameObject.GetComponent<Player_Movement>().collectables += 1;
 
             Debug.Log("Current collectables: " + collision.gameObject.GetComponent<Player_Movement>().collectables);
             finds.GetComponent<TextMeshProUGUI>().text = "Collectables: " + collision.gameObject.GetComponent<Player_Movement>().collectables;
@@ -41,12 +41,15 @@ public class Collectable : MonoBehaviour
     }
     void Update()
     {
+        transform.Rotate(new Vector3 (0.1f, 0.1f, 0.1f), Space.Self);
+
         if (isPlayerNear)
         {
             playerPosition = GameObject.Find("Player").transform.position;
             collectablePosition = transform.position;
 
             transform.position = Vector3.MoveTowards(collectablePosition, playerPosition, speed*Time.deltaTime);
+            transform.localScale = Vector3.Lerp(transform.localScale, new Vector3 (0, 0, 0), speed*Time.deltaTime);
         }
     }
 }
