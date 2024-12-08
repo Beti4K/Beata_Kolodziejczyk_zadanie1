@@ -5,6 +5,8 @@ using UnityEngine;
 public class Obstacle_Spawner : MonoBehaviour
 {
     [SerializeField] GameObject obstacle;
+    [SerializeField] int rangeZ;
+    [SerializeField] int rangeX;
     void Start()
     {
         StartCoroutine(SpawnCooldown());
@@ -18,7 +20,7 @@ public class Obstacle_Spawner : MonoBehaviour
     private IEnumerator SpawnCooldown()
     {
         yield return new WaitForSeconds(5);
-        Instantiate(obstacle, new Vector3(Random.Range(-6, 6), 0.2f, Random.Range(-4, 4)), Quaternion.identity);
+        Instantiate(obstacle, new Vector3(Random.Range(-rangeX, rangeX), 0.53f, Random.Range(-rangeZ, rangeZ)), Quaternion.identity);
         StartCoroutine(SpawnCooldown());
     }
 }

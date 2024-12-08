@@ -11,12 +11,16 @@ public class Collectable : MonoBehaviour
     private Vector3 playerPosition;
     private Vector3 collectablePosition;
 
-    private float speed = 1;
+    private Vector3 startScale;
+    private Vector3 startPosition;
+
+    private float speed = 2;
 
     [SerializeField] GameObject finds;
     void Start()
     {
-        
+        startScale = transform.localScale;
+        startPosition = transform.localPosition;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -41,8 +45,6 @@ public class Collectable : MonoBehaviour
     }
     void Update()
     {
-        transform.Rotate(new Vector3 (0.1f, 0.1f, 0.1f), Space.Self);
-
         if (isPlayerNear)
         {
             playerPosition = GameObject.Find("Player").transform.position;
@@ -50,6 +52,10 @@ public class Collectable : MonoBehaviour
 
             transform.position = Vector3.MoveTowards(collectablePosition, playerPosition, speed*Time.deltaTime);
             transform.localScale = Vector3.Lerp(transform.localScale, new Vector3 (0, 0, 0), speed*Time.deltaTime);
+        }
+        else
+        {
+            transform.localScale = Vector3.Lerp(transform.localScale, startScale, speed * Time.deltaTime);
         }
     }
 }

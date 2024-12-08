@@ -10,6 +10,10 @@ public class Collision_Points : MonoBehaviour
     public GameObject scoreText;
     private int score;
 
+    private void Start()
+    {
+        player = GameObject.Find("Player");
+    }
     private void OnCollisionEnter(Collision collision)
     {
         player.GetComponent<Player_Movement>().points += 1;
