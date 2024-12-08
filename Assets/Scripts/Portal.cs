@@ -13,6 +13,8 @@ public class Portal : MonoBehaviour
     private bool increasing;
 
     [SerializeField] GameObject winScreen;
+
+    [SerializeField] GameObject message;
     void Start()
     {
         startScale = transform.localScale;
@@ -50,6 +52,7 @@ public class Portal : MonoBehaviour
         if (other.gameObject.CompareTag("Player"))
         {
             winScreen.SetActive(true);
+            message.SetActive(false);
             other.gameObject.GetComponent<Player_Movement>().isGameActive = false;
         }
     }

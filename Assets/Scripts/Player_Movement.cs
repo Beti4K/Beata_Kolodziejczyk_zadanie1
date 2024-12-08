@@ -15,6 +15,8 @@ public class Player_Movement : MonoBehaviour
     public GameObject gameOverScreen;
 
     [SerializeField] GameObject[] healthIcons;
+
+    [SerializeField] GameObject pauseScreen;
     private void Start()
     {
         maxHealth = 3;
@@ -29,6 +31,11 @@ public class Player_Movement : MonoBehaviour
 
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            PauseGame();
+        }
+
         if (isGameActive)
         {
             float horizontal = Input.GetAxis("Horizontal");
@@ -50,6 +57,19 @@ public class Player_Movement : MonoBehaviour
         for (int i = 0; i < health; i++)
         {
             healthIcons[i].SetActive(true);
+        }
+    }
+    private void PauseGame()
+    {
+        if (isGameActive)
+        {
+            isGameActive = false;
+            pauseScreen.SetActive(true);
+        }
+        else
+        {
+            isGameActive = true;
+            pauseScreen.SetActive(false);
         }
     }
 

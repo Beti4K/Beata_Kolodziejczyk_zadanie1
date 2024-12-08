@@ -5,6 +5,9 @@ using UnityEngine;
 
 public class Obstacle_Spawner : MonoBehaviour
 {
+
+    private Player_Movement player;
+
     [SerializeField] GameObject obstacle;
     [SerializeField] int rangeZ;
     [SerializeField] int rangeX;
@@ -15,6 +18,7 @@ public class Obstacle_Spawner : MonoBehaviour
     public List<Vector3> positions;
     void Start()
     {
+        player = GameObject.Find("Player").GetComponent<Player_Movement>();
         StartCoroutine(SpawnCooldown());
     }
 
@@ -25,25 +29,28 @@ public class Obstacle_Spawner : MonoBehaviour
 
     private IEnumerator SpawnCooldown()
     {
-        yield return new WaitForSeconds(5);
-
-        //preventing obstacle from spawning on portal spot
-        while (xValue == 0 && zValue == 0)
+        if (player.isGameActive)
         {
-            xValue = Random.Range(-rangeX, rangeX);
-            zValue = Random.Range(-rangeZ, rangeZ);
+            yield return new WaitForSeconds(5);
+
+            //preventing obstacle from spawning on portal spot
+            while (xValue == 0 && zValue == 0)
+            {
+                xValue = Random.Range(-rangeX, rangeX);
+                zValue = Random.Range(-rangeZ, rangeZ);
+            }
+
+            //prevents obstacles from stacking
+            while (positions.Contains(new Vector3(xValue, 0.53f, zValue)))
+            {
+                xValue = Random.Range(-rangeX, rangeX);
+                zValue = Random.Range(-rangeZ, rangeZ);
+            }
+
+            positions.Add(new Vector3(xValue, 0.53f, zValue));
+
+            Instantiate(obstacle, new Vector3(xValue, 0.53f, zValue), Quaternion.identity);
+            StartCoroutine(SpawnCooldown());
         }
-
-        //prevents obstacles from stacking
-        while (positions.Contains(new Vector3 (xValue, 0.53f, zValue)))
-        {
-            xValue = Random.Range(-rangeX, rangeX);
-            zValue = Random.Range(-rangeZ, rangeZ);
-        }
-
-        positions.Add(new Vector3 (xValue, 0.53f, zValue));
-
-        Instantiate(obstacle, new Vector3(xValue, 0.53f, zValue), Quaternion.identity);
-        StartCoroutine(SpawnCooldown());
     }
 }

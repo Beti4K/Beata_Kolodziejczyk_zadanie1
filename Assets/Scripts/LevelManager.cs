@@ -9,6 +9,8 @@ public class LevelManager : MonoBehaviour
 
     [SerializeField] GameObject[] points;
 
+    [SerializeField] GameObject message;
+
     void Start()
     {
         player = GameObject.Find("Player").GetComponent<Player_Movement>();
@@ -18,6 +20,7 @@ public class LevelManager : MonoBehaviour
     {
         if (player.points == points.Length)
         {
+            message.SetActive(true);
             portal.SetActive(true);
         }
     }
