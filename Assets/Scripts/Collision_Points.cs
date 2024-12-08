@@ -6,23 +6,33 @@ using TMPro;
 
 public class Collision_Points : MonoBehaviour
 {
-    public GameObject player;
+    private GameObject player;
+
     public GameObject scoreText;
     private int score;
+
+    private bool wasHit;
 
     private void Start()
     {
         player = GameObject.Find("Player");
+        wasHit = false;
     }
     private void OnCollisionEnter(Collision collision)
     {
-        player.GetComponent<Player_Movement>().points += 1;
+        if (!wasHit)
+        {
+            wasHit = true;
 
-        score = player.GetComponent<Player_Movement>().points;
+            player.GetComponent<Player_Movement>().points += 1;
 
-        Debug.Log("Current points: " + score);
-        scoreText.GetComponent<TextMeshProUGUI>().text = "Points: "+score;
+            score = player.GetComponent<Player_Movement>().points;
 
-        this.gameObject.GetComponent<Renderer>().material.color = new Color32(Random.Range(0, 256).ConvertTo<byte>(), Random.Range(0, 256).ConvertTo<byte>(), Random.Range(0, 256).ConvertTo<byte>(), 255);
+            Debug.Log("Current points: " + score);
+            scoreText.GetComponent<TextMeshProUGUI>().text = "Points: " + score;
+
+            this.gameObject.GetComponent<Renderer>().material.color = Color.yellow;
+            this.gameObject.GetComponent<Light>().enabled = true;
+        }
     }
 }

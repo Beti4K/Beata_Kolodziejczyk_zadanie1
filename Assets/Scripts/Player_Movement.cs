@@ -11,7 +11,7 @@ public class Player_Movement : MonoBehaviour
     public int points = 0;
     public int collectables = 0;
 
-    private bool isGameActive = true;
+    public bool isGameActive = true;
     public GameObject gameOverScreen;
 
     [SerializeField] GameObject[] healthIcons;

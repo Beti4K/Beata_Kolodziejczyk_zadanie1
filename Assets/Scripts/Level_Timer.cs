@@ -15,16 +15,19 @@ public class Level_Timer : MonoBehaviour
     }
     private IEnumerator TimePass()
     {
-        yield return new WaitForSeconds(1);
-        if (levelTime <= 0)
+        if (Player.GetComponent<Player_Movement>().isGameActive)
         {
-            Player.GetComponent<Player_Movement>().GameOver();
-        }
-        else
-        {
-            levelTime -= 1.0f;
-            Timer.GetComponent<TextMeshProUGUI>().text = "Time: " + levelTime + "s";
-            StartCoroutine(TimePass());
+            yield return new WaitForSeconds(1);
+            if (levelTime <= 0)
+            {
+                Player.GetComponent<Player_Movement>().GameOver();
+            }
+            else
+            {
+                levelTime -= 1.0f;
+                Timer.GetComponent<TextMeshProUGUI>().text = "Time: " + levelTime + "s";
+                StartCoroutine(TimePass());
+            }
         }
     }
 }
